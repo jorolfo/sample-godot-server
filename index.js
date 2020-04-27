@@ -1,6 +1,7 @@
 const restify = require('restify');
 
 const server = restify.createServer();
+const PORT = process.env.PORT || 80
 
 // index status
 server.get('/', (req, res, next) => {
@@ -17,6 +18,6 @@ server.post(`/register-lobby`, async (req, res, next) => {
     next();
 });
 
-server.listen(8080, () => {
+server.listen(PORT, () => {
     console.log(`%s listening at %s`, server.name, server.url)
 });
