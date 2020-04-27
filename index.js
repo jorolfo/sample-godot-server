@@ -15,7 +15,8 @@ server.use(restify.plugins.bodyParser());
 server.get('/', (req, res, next) => {
     res.contentType = 'json';
     res.send({
-        server_status: `live`
+        server_status: `live`,
+        port: PORT
     });
     next();
 })
