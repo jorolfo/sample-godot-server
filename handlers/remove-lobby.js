@@ -1,20 +1,22 @@
 const fs = require('fs');
 
-const registerLobby = async (req, res, next) => {
+const removeLobby = async (req, res, next) => {
     let rooms = require('../lobbies/lobbies.json');
     let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
     // write to lobbies
-    rooms.lobbies.push({
-        ip,
-        ...req.body
-    });
+    let lobbies = rooms.lobbies.filter((i) => {i.ip !== ip});
 
-    fs.writeFileSync('./lobbies/lobbies.json', JSON.stringify(rooms))
+    rooms = {
+        lobbies
+    }
+
+
+    await fs.writeFileSync('./lobbies/lobbies.json', JSON.stringify(rooms))
 
     res.contentType = 'json'
     res.send({result: true})
     next();
 };
 
-module.exports = registerLobby;
+module.exports = removeLobby;

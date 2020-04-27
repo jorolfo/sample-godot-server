@@ -1,8 +1,12 @@
-let rooms = require('../lobbies/lobbies.json');
+const fs = require('fs');
 
-let listLobbies = async (req, res, next) => {
+const listLobbies = async (req, res, next) => {
+    let roomsFile = fs.readFileSync('./lobbies/lobbies.json');
+    let rooms = JSON.parse(roomsFile)
+    console.log(`Available rooms:`, rooms)
+
     res.contentType = 'json'
-    res.send(rooms.lobbies)
+    res.send(rooms)
     next();
 };
 
