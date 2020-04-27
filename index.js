@@ -1,7 +1,14 @@
 const restify = require('restify');
+const registerLobby = require('./handlers/register-lobby');
+const listLobbies = require('./handlers/list-lobbies');
 
 const server = restify.createServer();
-const PORT = process.env.PORT || 80
+const PORT = process.env.PORT || 8080
+
+server.use(restify.plugins.acceptParser(server.acceptable));
+server.use(restify.plugins.queryParser());
+server.use(restify.plugins.fullResponse());
+server.use(restify.plugins.bodyParser());
 
 // index status
 server.get('/', (req, res, next) => {
@@ -13,10 +20,8 @@ server.get('/', (req, res, next) => {
 })
 
 // create server
-server.post(`/register-lobby`, async (req, res, next) => {
-    console.log(`Request: `, req)
-    next();
-});
+server.post(`/register-lobby`, registerLobby);
+server.get(`/list-lobbies`, listLobbies)
 
 server.listen(PORT, () => {
     console.log(`%s listening at %s`, server.name, server.url)
