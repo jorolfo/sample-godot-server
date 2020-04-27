@@ -1,0 +1,13 @@
+{
+  "name": "sample-godot-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jorolfo/sample-godot-server",
+  "license": "MIT",
+  "dependencies": {
+    "restify": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/restify": "^8.4.2"
+  }
+}
